@@ -2,15 +2,21 @@ package com.aluracursos.desafio_literatura.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+@Table(name = "datos_libros")
 
 public record DatosLibros(
-        @JsonAlias("title") String titulo,
-        @JsonAlias("authors") List<DatosAutor> autor,
-        @JsonAlias("languages") List<String> idiomas,
-        @JsonAlias("download_count") Double numeroDeDescargas
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        Long id,
+        @Column(unique = true)
+        String titulo,
+        List<DatosAutor> autor,
+        List<String> idiomas,
+        Double numeroDeDescargas
 ) {
 }
